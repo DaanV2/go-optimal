@@ -1,4 +1,4 @@
-name: PR
+name: 🐹 Golang
 on:
   push:
     branches: ["main"]
