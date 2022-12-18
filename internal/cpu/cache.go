@@ -1,5 +1,7 @@
 package cpu
 
+import env "github.com/daanv2/optimal/environment"
+
 type CacheKind int
 
 const (
@@ -39,4 +41,31 @@ func GetCacheSize(kind CacheKind) int64 {
 	default:
 		return cacheInfo.L3
 	}
+}
+
+// GetDefaultCacheTarget returns the default cache target.
+func GetDefaultCacheTarget() CacheKind {
+	value := env.String.Lookup("CPU_CACHE_TARGET", "NONE")
+
+	switch value {
+	case "L1", "l1":
+		return CacheL1
+	case "L2", "l2":
+		return CacheL2
+	case "L3", "l3":
+		return CacheL3
+	}
+
+	// Determine the target from the cache size
+	result := CacheL1
+	cpu := GetCPUInfo()
+
+	if cpu.Cache.L1 <= 0 {
+		result = CacheL2
+	}
+	if cpu.Cache.L2 <= 0 {
+		result = CacheL3
+	}
+
+	return result
 }

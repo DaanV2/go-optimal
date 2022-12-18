@@ -1,17 +1,14 @@
 package cpu
 
 import (
-	"fmt"
-	"runtime"
-
-	env "github.com/DaanV2/optimal/environment"
+	env "github.com/daanv2/optimal/environment"
 	"github.com/klauspost/cpuid/v2"
 )
 
 func init() {
 	CPU := cpuid.CPU
 
-	cpuinfo = CPUData{
+	cpuinfo = &CPUData{
 		BrandName: CPU.BrandName,
 		Cache: CacheInfo{
 			L1: env.Int64.Lookup("CPU_CACHE_L1", int64(CPU.Cache.L1I)),
@@ -21,17 +18,11 @@ func init() {
 	}
 
 	cpuinfo.Cache.CheckAndEstimate()
-
-	fmt.Printf("cpu: %s\n", cpuinfo.BrandName)
-	fmt.Printf("cache L1: %v\n", cpuinfo.Cache.L1)
-	fmt.Printf("cache L2: %v\n", cpuinfo.Cache.L2)
-	fmt.Printf("cache L3: %v\n", cpuinfo.Cache.L3)
-	fmt.Printf("concurrency: %v\n", runtime.GOMAXPROCS(0))
 }
 
-var cpuinfo CPUData
+var cpuinfo *CPUData
 
-func GetCPUInfo() CPUData {
+func GetCPUInfo() *CPUData {
 	return cpuinfo
 }
 
