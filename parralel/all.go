@@ -2,6 +2,7 @@ package parralel
 
 import "sync"
 
+// All runs all the functions in parallel and returns all the errors.
 func All(calls ...func() error) []error {
 	errors := errorCollection{}
 	var wg sync.WaitGroup
