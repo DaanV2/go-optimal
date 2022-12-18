@@ -9,6 +9,6 @@ func SliceSize[T any]() int64 {
 }
 
 // MakeSlice returns a slice with the capacity set to the ideal size
-func MakeSlice[T any]() []T {
+func NewSlice[T any]() []T {
 	return make([]T, 0, SliceSize[T]())
 }
