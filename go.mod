@@ -1,4 +1,4 @@
-module github.com/DaanV2/optimal
+module github.com/daanv2/optimal
 
 go 1.19
 
