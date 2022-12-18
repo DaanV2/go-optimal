@@ -7,15 +7,19 @@ import (
 )
 
 // ForEach will execute the callback function for each item in the slice
-func ForEach[T any](data []T, callbackFn func(int, T, []T) error) []error {
-	targetSize := int(optimal.SliceSize[T]())
-	wg := sync.WaitGroup{}
-	max := len(data)
+func ForEach[T any](data []T, callbackFn func(index int, item T, items []T) error) []error {
 	errors := errorCollection{}
+	max := len(data)
+	targetSize := optimal.SliceChunkSize[T](max)
+	wg := sync.WaitGroup{}
 
 	for index := 0; index < max; index += targetSize {
 		wg.Add(1)
 
+		last := index + targetSize
+		if last > max {
+			last = max
+		}
 		go func(start int, section []T, items []T) {
 			defer wg.Done()
 
@@ -24,7 +28,7 @@ func ForEach[T any](data []T, callbackFn func(int, T, []T) error) []error {
 					errors.Add(err)
 				}
 			}
-		}(index, data[index:index+targetSize], data)
+		}(index, data[index:last], data)
 	}
 
 	wg.Wait()

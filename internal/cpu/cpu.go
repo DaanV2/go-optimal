@@ -48,3 +48,11 @@ func (c *CacheInfo) CheckAndEstimate() {
 		c.L3 = 33_554_432 // 32MB is currently the default value for L3 cache size of a modern CPU
 	}
 }
+
+// Println prints the CPU information
+func (c *CPUData) Print() {
+	println("CPU:", c.BrandName)
+	println("Cache L1:", c.Cache.L1)
+	println("Cache L2:", c.Cache.L2)
+	println("Cache L3:", c.Cache.L3)
+}
