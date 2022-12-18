@@ -3,19 +3,19 @@ package parralel
 import "sync"
 
 // All runs all the functions in parallel and returns all the errors.
-func All(calls ...func() error) []error {
+func All(calls ...func() error) []SliceError {
 	errors := errorCollection{}
 	var wg sync.WaitGroup
 	wg.Add(len(calls))
 
-	for _, callFn := range calls {
-		go func(call func() error) {
+	for index, callFn := range calls {
+		go func(index int, call func() error) {
 			defer wg.Done()
 
 			if err := call(); err != nil {
-				errors.Add(err)
+				errors.Add(err, index)
 			}
-		}(callFn)
+		}(index, callFn)
 	}
 
 	wg.Wait()

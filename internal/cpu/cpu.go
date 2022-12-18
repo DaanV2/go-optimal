@@ -20,23 +20,33 @@ func init() {
 	cpuinfo.Cache.CheckAndEstimate()
 }
 
+// cpuinfo is the CPU information
 var cpuinfo *CPUData
 
+// GetCPUInfo returns the CPU information
 func GetCPUInfo() *CPUData {
 	return cpuinfo
 }
 
+// CPUData contains the CPU information
 type CPUData struct {
+	// BrandName is the name of the CPU
 	BrandName string
-	Cache     CacheInfo
+	// Cache contains the cache information
+	Cache CacheInfo
 }
 
+// CacheInfo contains the cache information
 type CacheInfo struct {
+	// L1 is the size of the L1 cache in bytes
 	L1 int64
+	// L2 is the size of the L2 cache in bytes
 	L2 int64
+	// L3 is the size of the L3 cache in bytes
 	L3 int64
 }
 
+// CheckAndEstimate checks if the cache sizes are valid and estimates them if they are not
 func (c *CacheInfo) CheckAndEstimate() {
 	if c.L1 <= 0 {
 		c.L1 = 128_000 // 128KB is currently the default value for L1 cache size of a modern CPU

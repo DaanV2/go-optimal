@@ -7,7 +7,7 @@ import (
 )
 
 // ForEach will execute the callback function for each item in the slice
-func ForEach[T any](data []T, callbackFn func(index int, item T, items []T) error) []error {
+func ForEach[T any](data []T, callbackFn func(index int, item T, items []T) error) []SliceError {
 	errors := errorCollection{}
 	max := len(data)
 	targetSize := optimal.SliceChunkSize[T](max)
@@ -25,7 +25,7 @@ func ForEach[T any](data []T, callbackFn func(index int, item T, items []T) erro
 
 			for j, item := range section {
 				if err := callbackFn(start+j, item, items); err != nil {
-					errors.Add(err)
+					errors.Add(err, start+j)
 				}
 			}
 		}(index, data[index:last], data)

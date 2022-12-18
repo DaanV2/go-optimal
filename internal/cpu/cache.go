@@ -2,18 +2,24 @@ package cpu
 
 import env "github.com/daanv2/optimal/environment"
 
+// CacheKind is a enum that represents the kind of cache.
 type CacheKind int
 
 const (
+	// CacheL1 is the L1 cache.
 	CacheL1 CacheKind = 0
+	// CacheL2 is the L2 cache.
 	CacheL2 CacheKind = 1
+	// CacheL3 is the L3 cache.
 	CacheL3 CacheKind = 2
 )
 
+// GetCacheSize returns the size of the cache.
 func (ck CacheKind) GetCacheSize() int64 {
 	return GetCacheSize(ck)
 }
 
+// String returns the string representation of the cache kind.
 func (ck CacheKind) String() string {
 	switch ck {
 	case CacheL1:

@@ -7,7 +7,7 @@ import (
 )
 
 // Map will execute the callback function for each item in the slice and return the result
-func Map[T any, U any](data []T, callbackFn func(index int, item T, items []T) (U, error)) ([]U, []error) {
+func Map[T any, U any](data []T, callbackFn func(index int, item T, items []T) (U, error)) ([]U, []SliceError) {
 	errors := errorCollection{}
 	max := len(data)
 	result := make([]U, len(data))
@@ -28,7 +28,7 @@ func Map[T any, U any](data []T, callbackFn func(index int, item T, items []T) (
 			for j, item := range section {
 				item, err := callbackFn(start+j, item, items);
 				if err != nil {
-					errors.Add(err)
+					errors.Add(err, start+j)
 				} else {
 					result[start+j] = item
 				}
