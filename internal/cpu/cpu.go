@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"runtime"
 
+	env "github.com/DaanV2/optimal/environment"
 	"github.com/klauspost/cpuid/v2"
-	env "github.com/optimal/environment"
 )
 
 func init() {
