@@ -2,13 +2,15 @@ package env
 
 import "strconv"
 
-var Int64 = environment[int64]{
+// Int64 able to get environment variables and convert them to int64.
+var Int64 = EnvironmentType[int64]{
 	convert: func(value string) (int64, error) {
 		return strconv.ParseInt(value, 10, 64)
 	},
 }
 
-var Int32 = environment[int32]{
+// Int32 able to get environment variables and convert them to int32.
+var Int32 = EnvironmentType[int32]{
 	convert: func(value string) (int32, error) {
 		v, err := strconv.ParseInt(value, 10, 32)
 		if err != nil {
@@ -19,7 +21,8 @@ var Int32 = environment[int32]{
 	},
 }
 
-var Int16 = environment[int16]{
+// Int16 able to get environment variables and convert them to int16.
+var Int16 = EnvironmentType[int16]{
 	convert: func(value string) (int16, error) {
 		v, err := strconv.ParseInt(value, 10, 32)
 		if err != nil {
@@ -30,7 +33,8 @@ var Int16 = environment[int16]{
 	},
 }
 
-var Int8 = environment[int8]{
+// Int8 able to get environment variables and convert them to int8.
+var Int8 = EnvironmentType[int8]{
 	convert: func(value string) (int8, error) {
 		v, err := strconv.ParseInt(value, 10, 32)
 		if err != nil {
@@ -41,7 +45,8 @@ var Int8 = environment[int8]{
 	},
 }
 
-var Int = environment[int]{
+// Int able to get environment variables and convert them to int.
+var Int = EnvironmentType[int]{
 	convert: func(value string) (int, error) {
 		v, err := strconv.ParseInt(value, 10, 32)
 		if err != nil {

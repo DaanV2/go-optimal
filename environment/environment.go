@@ -2,13 +2,14 @@ package env
 
 import "os"
 
-type environment[T any] struct {
+// EnvironmentType is a type that can be used to get environment variables and convert them to T.
+type EnvironmentType[T any] struct {
 	convert func(value string) (T, error)
 }
 
-// Lookup returns the value of the environment variable named by the key. converted to T.
+// Lookup returns the value of the EnvironmentType variable named by the key. converted to T.
 // If the variable is not present or error, the fallback value is returned.
-func (e environment[T]) Lookup(key string, fallback T) T {
+func (e EnvironmentType[T]) Lookup(key string, fallback T) T {
 	value, ok := os.LookupEnv(key)
 	if !ok {
 		return fallback
@@ -22,25 +23,25 @@ func (e environment[T]) Lookup(key string, fallback T) T {
 	return result
 }
 
-// MustLookup returns the value of the environment variable named by the key. converted to T.
+// MustLookup returns the value of the EnvironmentType variable named by the key. converted to T.
 // If the variable is not present or error, the program panics.
-func (e environment[T]) MustLookup(key string) T {
+func (e EnvironmentType[T]) MustLookup(key string) T {
 	value, ok := os.LookupEnv(key)
 	if !ok {
-		panic("missing environment variable: " + key)
+		panic("missing EnvironmentType variable: " + key)
 	}
 
 	result, err := e.convert(value)
 	if err != nil {
-		panic("invalid environment variable: " + key)
+		panic("invalid EnvironmentType variable: " + key)
 	}
 
 	return result
 }
 
-// LookupIf returns the value of the environment variable named by the key. converted to T.
+// LookupIf returns the value of the EnvironmentType variable named by the key. converted to T.
 // If the variable is not present or error, the default value of T is returned and false is returned.
-func (e environment[T]) LookupIf(key string) (T, bool) {
+func (e EnvironmentType[T]) LookupIf(key string) (T, bool) {
 	var result T
 	value, ok := os.LookupEnv(key)
 	if !ok {
@@ -55,9 +56,9 @@ func (e environment[T]) LookupIf(key string) (T, bool) {
 	return result, true
 }
 
-// Get returns the value of the environment variable named by the key. converted to T.
+// Get returns the value of the EnvironmentType variable named by the key. converted to T.
 // If the variable is not present or error, the default value of T is returned.
-func (e environment[T]) Get(key string) (T, error) {
+func (e EnvironmentType[T]) Get(key string) (T, error) {
 	var (
 		value T
 		ok    bool
