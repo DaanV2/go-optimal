@@ -1,0 +1,38 @@
+name: PR
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    name: Checks
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🛠️ Setup Go environment
+        id: setup-go
+        uses: actions/setup-go@v3.3.0
+        with:
+          go-version-file: "go.mod"
+          check-latest: true
+          cache: true
+
+      - name: Dependencies ${{ steps.setup-go.outputs.go-version }}
+        run: |
+          go mod download
+          go mod tidy
+
+      - name: 🔨 Build ${{ steps.setup-go.outputs.go-version }}
+        run: go build ./...
+
+      - name: Environment
+        run: go env
+
+      - name: 📋 Test ${{ steps.setup-go.outputs.go-version }}
+        run: go test ./...
