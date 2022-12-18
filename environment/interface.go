@@ -6,6 +6,8 @@ type environment[T any] struct {
 	convert func(value string) (T, error)
 }
 
+// Lookup returns the value of the environment variable named by the key. converted to T.
+// If the variable is not present or error, the fallback value is returned.
 func (e environment[T]) Lookup(key string, fallback T) T {
 	value, ok := os.LookupEnv(key)
 	if !ok {
@@ -20,6 +22,8 @@ func (e environment[T]) Lookup(key string, fallback T) T {
 	return result
 }
 
+// MustLookup returns the value of the environment variable named by the key. converted to T.
+// If the variable is not present or error, the program panics.
 func (e environment[T]) MustLookup(key string) T {
 	value, ok := os.LookupEnv(key)
 	if !ok {
@@ -34,6 +38,8 @@ func (e environment[T]) MustLookup(key string) T {
 	return result
 }
 
+// Get returns the value of the environment variable named by the key. converted to T.
+// If the variable is not present or error, the default value of T is returned.
 func (e environment[T]) Get(key string) (T, error) {
 	var (
 		value T
