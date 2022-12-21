@@ -4,7 +4,6 @@ import "testing"
 
 
 func Test_ObjectSize(t *testing.T) {
-
 	t.Run("Int64 should be 8 bytes", func(t *testing.T) {
 		if ObjectSize[int64]() != 8 {
 			t.Fail()
