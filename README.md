@@ -1,4 +1,4 @@
-# Optimal
+# Go Optimal
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/DaanV2/optimal)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/DaanV2/optimal)
