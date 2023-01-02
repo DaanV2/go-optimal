@@ -1,9 +1,9 @@
-package parralel
+package parallel
 
 import (
 	"sync"
 
-	"github.com/daanv2/go-optimal/optimal"
+	"github.com/daanv2/go-optimal"
 )
 
 // Map will execute the callback function for each item in the slice and return the result
