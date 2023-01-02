@@ -3,8 +3,8 @@ package optimal
 import (
 	"fmt"
 
-	env "github.com/daanv2/optimal/environment"
-	"github.com/daanv2/optimal/internal/cpu"
+	env "github.com/daanv2/go-optimal/environment"
+	"github.com/daanv2/go-optimal/internal/cpu"
 )
 
 func init() {
