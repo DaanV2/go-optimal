@@ -20,17 +20,19 @@ func ForEach[T any](data []T, callbackFn func(index int, item T, items []T) erro
 		if last > max {
 			last = max
 		}
-		go func(start int, section []T, items []T) {
-			defer wg.Done()
-
-			for j, item := range section {
-				if err := callbackFn(start+j, item, items); err != nil {
-					errors.Add(err, start+j)
-				}
-			}
-		}(index, data[index:last], data)
+		go forEachItem(index, data[index:last], data, callbackFn, &wg, &errors)
 	}
 
 	wg.Wait()
 	return errors.Get()
+}
+
+func forEachItem[T any](start int, section []T, items []T, callbackFn func(index int, item T, items []T) error, wg *sync.WaitGroup, errors *errorCollection) {
+	defer wg.Done()
+
+	for j, item := range section {
+		if err := callbackFn(start+j, item, items); err != nil {
+			errors.Add(err, start+j)
+		}
+	}
 }

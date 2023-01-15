@@ -22,20 +22,22 @@ func Map[T any, U any](data []T, callbackFn func(index int, item T, items []T) (
 			last = max
 		}
 
-		go func(start int, section []T, items []T) {
-			defer wg.Done()
-
-			for j, item := range section {
-				item, err := callbackFn(start+j, item, items);
-				if err != nil {
-					errors.Add(err, start+j)
-				} else {
-					result[start+j] = item
-				}
-			}
-		}(index, data[index:last], data)
+		go mapItem(index, data[index:last], data, callbackFn, &wg, &errors, &result)
 	}
 
 	wg.Wait()
 	return result, errors.Get()
+}
+
+func mapItem[T any, U any](start int, section []T, items []T, callbackFn func(index int, item T, items []T) (U, error), wg *sync.WaitGroup, errors *errorCollection, result *[]U) {
+	defer wg.Done()
+
+	for j, item := range section {
+		item, err := callbackFn(start+j, item, items);
+		if err != nil {
+			errors.Add(err, start+j)
+		} else {
+			(*result)[start+j] = item
+		}
+	}
 }

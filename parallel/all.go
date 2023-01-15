@@ -9,15 +9,17 @@ func All(calls ...func() error) []SliceError {
 	wg.Add(len(calls))
 
 	for index, callFn := range calls {
-		go func(index int, call func() error) {
-			defer wg.Done()
-
-			if err := call(); err != nil {
-				errors.Add(err, index)
-			}
-		}(index, callFn)
+		go allItem(index, callFn, &wg, &errors)
 	}
 
 	wg.Wait()
 	return errors.Get()
+}
+
+func allItem(index int, call func() error, wg *sync.WaitGroup, errors *errorCollection) {
+	defer wg.Done()
+
+	if err := call(); err != nil {
+		errors.Add(err, index)
+	}
 }
