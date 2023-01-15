@@ -1,4 +1,4 @@
-package slices
+package optimal
 
 import (
 	"strconv"

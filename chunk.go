@@ -1,10 +1,8 @@
-package slices
-
-import "github.com/daanv2/go-optimal"
+package optimal
 
 // Chunk will chunk a slice into smaller slices based upon the optimal size
 func Chunk[T any](items []T, callback func(items []T) error) error {
-	chunk := optimal.SliceSize[T]()
+	chunk := SliceSize[T]()
 
 	for i := 0; i < len(items); i += chunk {
 		end := i + chunk

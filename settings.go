@@ -8,8 +8,8 @@ import (
 )
 
 func init() {
-	tempTarget, ok := env.Int64.LookupIf("CPU_CACHE_OPTIMAL_SIZE")
-	if !ok {
+	tempTarget, found := env.Int64.LookupIf("CPU_CACHE_OPTIMAL_SIZE")
+	if !found {
 		switch cpu.GetDefaultCacheTarget() {
 		case cpu.CacheL1:
 			// 60% of the L1 cache
@@ -28,10 +28,10 @@ func init() {
 
 	targetSize = int64(tempTarget)
 
-	fmt.Println("==== // Optimal // ====")
+	fmt.Println("==== // Go Optimal // ====")
 	cpu.GetCPUInfo().Print()
-	fmt.Println("Target cpu cache:", cpu.GetDefaultCacheTarget())
-	fmt.Println("Target size:", targetSize)
+	fmt.Println("Target cpu cache: ", cpu.GetDefaultCacheTarget())
+	fmt.Println("Target size:      ", targetSize)
 }
 
 func percentage(value int64, percentage int64) int64 {
@@ -41,7 +41,7 @@ func percentage(value int64, percentage int64) int64 {
 // The amount of bytes data can maximally be
 var targetSize int64
 
-// The target size in bytes of what can be used in a cache
+// GetTargetSize The target size in bytes of what can be used in a cache
 func GetTargetSize() int64 {
 	return targetSize
 }
