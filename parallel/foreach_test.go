@@ -33,8 +33,7 @@ func ForEach_Tests(t *testing.T, itemSize int) {
 			}
 			return nil
 		})
-
-		assert.Equal(t, 0, len(errs))
+		assert.NoError(t, errs)
 
 		for _, item := range data {
 			assert.Equal(t, "Test", item.Name)

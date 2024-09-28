@@ -1,8 +1,6 @@
 package optimal
 
 import (
-	"fmt"
-
 	env "github.com/daanv2/go-optimal/environment"
 	"github.com/daanv2/go-optimal/internal/cpu"
 )
@@ -14,11 +12,6 @@ func init() {
 	}
 
 	targetSize = int64(tempTarget)
-
-	fmt.Println("==== // Go Optimal // ====")
-	cpu.GetCPUInfo().Print()
-	fmt.Println("Target cpu cache: ", cpu.GetDefaultCacheTarget())
-	fmt.Println("Target size:      ", targetSize)
 }
 
 func OptimalBytesForCache(cache cpu.CacheKind) int64 {

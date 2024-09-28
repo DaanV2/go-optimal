@@ -7,12 +7,12 @@ import (
 )
 
 // Map will execute the callback function for each item in the slice and return the result
-func Map[T any, U any](data []T, callbackFn func(index int, item T, items []T) (U, error)) ([]U, []SliceError) {
-	errors := errorCollection{}
+func Map[T any, U any](data []T, callbackFn func(index int, item T, items []T) (U, error)) ([]U, error) {
+	errors := &errorCollection{}
+	wg := &sync.WaitGroup{}
 	max := len(data)
 	result := make([]U, len(data))
 	targetSize := optimal.SliceChunkSize[T](max)
-	wg := sync.WaitGroup{}
 
 	for index := 0; index < max; index += targetSize {
 		wg.Add(1)
@@ -22,7 +22,7 @@ func Map[T any, U any](data []T, callbackFn func(index int, item T, items []T) (
 			last = max
 		}
 
-		go mapItem(index, data[index:last], data, callbackFn, &wg, &errors, &result)
+		go mapItem(index, data[index:last], data, callbackFn, wg, errors, &result)
 	}
 
 	wg.Wait()

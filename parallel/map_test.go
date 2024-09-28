@@ -31,8 +31,7 @@ func Map_Tests(t *testing.T, itemSize int) {
 			result := TestStruct{Name: "Test", Age: 10, Index: index}
 			return result, nil
 		})
-
-		assert.Equal(t, 0, len(errs))
+		assert.NoError(t, errs)
 
 		for index, item := range items {
 			assert.Equal(t, "Test", item.Name)

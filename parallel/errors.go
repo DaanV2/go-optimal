@@ -1,22 +1,12 @@
 package parallel
 
 import (
-	"fmt"
+	"errors"
 	"sync"
 )
 
-type SliceError struct {
-	base error
-	// The index of the element that caused the
-	index int
-}
-
-func (e *SliceError) Error() string {
-	return fmt.Sprintf("Error at index: %v", e.index) + ". " + e.base.Error()
-}
-
 type errorCollection struct {
-	errors []SliceError
+	errors error
 	lock   sync.Mutex
 }
 
@@ -25,9 +15,9 @@ func (e *errorCollection) Add(err error, index int) {
 	e.lock.Lock()
 	defer e.lock.Unlock()
 
-	e.errors = append(e.errors, SliceError{base: err, index: index})
+	e.errors = errors.Join(e.errors, err)
 }
 
-func (e *errorCollection) Get() []SliceError {
+func (e *errorCollection) Get() error {
 	return e.errors
 }
