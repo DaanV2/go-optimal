@@ -15,10 +15,10 @@ func SliceChunkSize[T any](size int) int {
 	targetSize := SliceSize[T]()
 
 	if targetSize > size {
-		return size / runtime.GOMAXPROCS(0)
+		targetSize = size / runtime.GOMAXPROCS(0)
 	}
 
-	return targetSize
+	return max(targetSize, 1)
 }
 
 // MakeSlice returns a slice with the capacity set to the ideal size
