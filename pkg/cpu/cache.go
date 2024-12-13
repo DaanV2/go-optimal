@@ -1,6 +1,6 @@
 package cpu
 
-import env "github.com/daanv2/go-optimal/environment"
+import env "github.com/DaanV2/go-optimal/environment"
 
 // CacheKind is a enum that represents the kind of cache.
 type CacheKind int
