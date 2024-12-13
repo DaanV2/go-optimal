@@ -2,7 +2,7 @@ package optimal
 
 import (
 	env "github.com/daanv2/go-optimal/environment"
-	"github.com/daanv2/go-optimal/internal/cpu"
+	"github.com/daanv2/go-optimal/pkg/cpu"
 )
 
 func init() {
