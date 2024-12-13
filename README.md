@@ -6,6 +6,9 @@
 
 A simple, fast, and easy-to-use library for optimally creating and handling data.
 
+```bash
+go get github.com/daanv2/go-optimal
+```
 
 ## Documentation
 
