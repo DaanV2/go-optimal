@@ -3,7 +3,7 @@ package parallel
 import (
 	"sync"
 
-	"github.com/DaanV2/go-optimal"
+	"github.com/daanv2/go-optimal"
 )
 
 // Map will execute the callback function for each item in the slice and return the result

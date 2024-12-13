@@ -1,4 +1,4 @@
-module github.com/DaanV2/go-optimal
+module github.com/daanv2/go-optimal
 
 go 1.23
 
