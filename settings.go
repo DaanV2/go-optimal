@@ -47,6 +47,11 @@ func GetTargetSize() int64 {
 	return targetSize
 }
 
+// GetTargetSizeFor returns the target size in bytes of what can be used in a cache
+func GetTargetSizeFor(kind cpu.CacheKind) int64 {
+	return OptimalBytesForCache(kind)
+}
+
 // SetTargetSize sets the target size in bytes of what can be used in a cache
 func SetTargetSize(size int64) {
 	targetSize = size
