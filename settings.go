@@ -14,6 +14,7 @@ func init() {
 	targetSize = int64(tempTarget)
 }
 
+// OptimalBytesForCache returns the optimal amount of bytes that can be used in a cache
 func OptimalBytesForCache(cache cpu.CacheKind) int64 {
 	switch cache {
 	case cpu.CacheL1:
