@@ -16,7 +16,7 @@ func ForEach[T any](data []T, callbackFn func(index int, item T, items []T) erro
 	for index := 0; index < max; index += targetSize {
 		wg.Add(1)
 
-		last := min(index + targetSize, max)
+		last := min(index+targetSize, max)
 		go forEachItem(index, data[index:last], data, callbackFn, wg, errors)
 	}
 

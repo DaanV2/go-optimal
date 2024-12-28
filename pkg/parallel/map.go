@@ -33,7 +33,7 @@ func mapItem[T any, U any](start int, section []T, items []T, callbackFn func(in
 	defer wg.Done()
 
 	for j, item := range section {
-		item, err := callbackFn(start+j, item, items);
+		item, err := callbackFn(start+j, item, items)
 		if err != nil {
 			errors.Add(err, start+j)
 		} else {

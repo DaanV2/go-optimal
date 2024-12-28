@@ -25,4 +25,3 @@ func SliceChunkSize[T any](size int) int {
 func NewSlice[T any]() []T {
 	return make([]T, 0, SliceSize[T]())
 }
-
