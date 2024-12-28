@@ -2,7 +2,7 @@ package optimal
 
 import "runtime"
 
-// SliceSize returns the size
+// SliceSize returns the size that a slice should be to fit in the target cache
 func SliceSize[T any]() int {
 	itemSize := ObjectSize[T]()
 	targetSize := GetTargetSize()

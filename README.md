@@ -10,6 +10,20 @@ A simple, fast, and easy-to-use library for optimally creating and handling data
 go get github.com/daanv2/go-optimal
 ```
 
+## Examples
+
+```go
+// SliceSize returns the size that a slice should be to fit in the target cache
+sliceSize := optimal.SliceSize[T]()
+
+cpu.GetCPUInfo()
+
+// These functions will be done in parralel, optimally splitting the work
+parallel.ForEach()
+parallel.Map()
+parallel.All()
+```
+
 ## Documentation
 
 The documentation can be found [go dev](https://pkg.go.dev/github.com/daanv2/go-optimal) or [here](https://github.com/daanv2/go-optimal/tree/main/doc).
