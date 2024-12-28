@@ -1,7 +1,7 @@
 package cpu
 
 import (
-	env "github.com/daanv2/go-optimal/environment"
+	env "github.com/daanv2/go-optimal/pkg/environment"
 	"github.com/klauspost/cpuid/v2"
 )
 
