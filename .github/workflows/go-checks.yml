@@ -32,7 +32,7 @@ jobs:
         run: go build ./...
 
       - name: 🧪 Run Tests
-        run: go test ./... --cover -coverprofile=reports/coverage
+        run: go test ./... --cover -coverprofile=coverage.out
 
       - name: 🔍 Run linting
         uses: golangci/golangci-lint-action@v9
