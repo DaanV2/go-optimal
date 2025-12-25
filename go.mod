@@ -1,6 +1,6 @@
 module github.com/daanv2/go-optimal
 
-go 1.23
+go 1.25
 
 require (
 	github.com/klauspost/cpuid/v2 v2.2.9

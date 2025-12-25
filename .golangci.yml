@@ -1,0 +1,149 @@
+# See the dedicated "version" documentation section.
+version: "2"
+linters:
+    # See the dedicated "linters" documentation section.
+    settings:
+        cyclop:
+            max-complexity: 20
+            package-average: 15
+        depguard:
+            rules:
+                blacklisted:
+                    deny:
+                        - pkg: github.com/gorilla/websocket
+                          desc: "Use github.com/coder/websocket"
+                        - pkg: "github.com/pkg/errors"
+                          desc: "Use the standard library errors package instead of github.com/pkg/errors"
+                        - pkg: "log"
+                          desc: "Use github.com/charmbracelet/log for structured logging"
+        nolintlint:
+            require-explanation: true
+            require-specific: true
+        gosec:
+            excludes:
+                - G115 # integer overflow conversion
+        gocritic:
+            enabled-checks:
+                - appendCombine
+                - badLock
+                - badRegexp
+                - badSorting
+                - badSyncOnceFunc
+                - boolExprSimplify
+                - builtinShadow
+                - builtinShadowDecl
+                - commentedOutImport
+                - deferInLoop
+                - deferUnlambda
+                - docStub
+                - dupImport
+                - dynamicFmtString
+                - emptyDecl
+                - emptyFallthrough
+                - emptyStringTest
+                - equalFold
+                - evalOrder
+                - exposedSyncMutex
+                - externalErrorReassign
+                - filepathJoin
+                - hexLiteral
+                - httpNoBody
+                - hugeParam
+                - importShadow
+                - indexAlloc
+                - initClause
+                - methodExprCall
+                - nestingReduce
+                - nilValReturn
+                - paramTypeCombine
+                - preferDecodeRune
+                - preferFilepathJoin
+                - preferFprint
+                - preferStringWriter
+                - preferWriteByte
+                - ptrToRefParam
+                - rangeAppendAll
+                - rangeExprCopy
+                - rangeValCopy
+                - redundantSprint
+                - regexpPattern
+                - regexpSimplify
+                - returnAfterHttpError
+                - ruleguard
+                - sliceClear
+                - sloppyReassign
+                - sortSlice
+                - sprintfQuotedString
+                - sqlQuery
+                - stringConcatSimplify
+                - stringsCompare
+                - stringXbytes
+                - syncMapLoadAndDelete
+                - timeExprSimplify
+                - todoCommentWithoutDetail
+                - tooManyResultsChecker
+                - truncateCmp
+                - typeAssertChain
+                - typeDefFirst
+                - typeUnparen
+                - uncheckedInlineErr
+                - unlabelStmt
+                - unnamedResult
+                - unnecessaryBlock
+                - unnecessaryDefer
+                - weakCond
+                - whyNoLint
+                - yodaStyleExpr
+    enable:
+        - asciicheck
+        - bidichk
+        - bodyclose
+        - canonicalheader
+        - contextcheck
+        - copyloopvar
+        - cyclop
+        - dupl
+        - durationcheck
+        - depguard
+        - errcheck
+        - errchkjson
+        - errorlint
+        - exhaustive
+        - exptostd
+        - fatcontext
+        - ginkgolinter
+        - gocheckcompilerdirectives
+        - goconst
+        - gocritic
+        - gomoddirectives
+        - goprintffuncname
+        - gosec
+        - gosmopolitan
+        - govet
+        - ineffassign
+        - intrange
+        - makezero
+        - mirror
+        - misspell
+        - nestif
+        - nilerr
+        - nilnesserr
+        - nilnil
+        - nlreturn
+        - noctx
+        - nosprintfhostport
+        - perfsprint
+        - prealloc
+        - predeclared
+        - protogetter
+        - reassign
+        - sqlclosecheck
+        - staticcheck
+        - testableexamples
+        - testifylint
+        - testpackage
+        - tparallel
+        - unconvert
+        - unused
+        - usestdlibvars
+        - usetesting

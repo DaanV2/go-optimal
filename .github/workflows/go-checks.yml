@@ -1,35 +1,36 @@
 name: 🐹 Golang
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+env:
+  FORCE_COLOR: true
 
+on:
+  workflow_call:
   workflow_dispatch:
 
 jobs:
   checks:
-    runs-on: ubuntu-latest
-    name: Checks
+    name: 📋 Checks ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
     steps:
-      - name: 📦 Checkout repository
-        uses: actions/checkout@v3
+      - name: 📦 Checkout Repository
+        uses: actions/checkout@v6
 
-      - name: 🛠️ Setup go environment
-        id: setup-go
-        uses: actions/setup-go@v3.5.0
+      - name: 🏗️ Setup Golang
+        uses: actions/setup-go@v6
         with:
-          go-version-file: "go.mod"
-          check-latest: true
-          cache: true
+          go-version-file: ./go.mod
 
-      - name: Dependencies ${{ steps.setup-go.outputs.go-version }}
-        run: |
-          go mod download
-          go mod tidy
-
-      - name: 🔨 Build ${{ steps.setup-go.outputs.go-version }}
+      - name: 🛠️ Build
         run: go build ./...
 
-      - name: 📋 Test ${{ steps.setup-go.outputs.go-version }}
-        run: go test ./... -v
+      - name: 🧪 Run Tests
+        run: go test ./... --cover -coverprofile=reports/coverage
+
+      - name: 🔍 Run linting
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: latest
+
