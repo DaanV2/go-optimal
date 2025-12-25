@@ -1,10 +1,12 @@
-package optimal
+package optimal_test
 
 import (
 	"strconv"
 	"testing"
 
+	"github.com/daanv2/go-optimal"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_Chunk(t *testing.T) {
@@ -27,7 +29,7 @@ func Chunk_Tests(t *testing.T, itemSize int) {
 	t.Run("Ensuring that all items are set in the slice", func(t *testing.T) {
 		data := make([]TestStruct, itemSize)
 
-		err := Chunk(data, func(items []TestStruct) error {
+		err := optimal.Chunk(data, func(items []TestStruct) error {
 			for index, item := range items {
 				item.Name = "Test"
 				item.Age = 10
@@ -38,7 +40,7 @@ func Chunk_Tests(t *testing.T, itemSize int) {
 			return nil
 		})
 
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		for _, item := range data {
 			assert.Equal(t, "Test", item.Name)

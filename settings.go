@@ -11,32 +11,35 @@ func init() {
 		tempTarget = OptimalBytesForCache(cpu.GetDefaultCacheTarget())
 	}
 
-	targetSize = int64(tempTarget)
+	targetSize = tempTarget
 }
 
 // OptimalBytesForCache returns the optimal amount of bytes that can be used in a cache
 func OptimalBytesForCache(cache cpu.CacheKind) int64 {
 	switch cache {
-	case cpu.CacheL1:
-		// 60% of the L1 cache
-		size := cpu.GetCacheSize(cpu.CacheL1)
-		return percentage(size, 60)
-
-	case cpu.CacheL2:
-		// 90% of the L2
-		size := cpu.GetCacheSize(cpu.CacheL2)
-		return percentage(size, 90)
-
 	default:
 		fallthrough
 	case cpu.CacheL3:
 		// 95% of the L3
 		size := cpu.GetCacheSize(cpu.CacheL3)
+
 		return percentage(size, 95)
+
+	case cpu.CacheL2:
+		// 90% of the L2
+		size := cpu.GetCacheSize(cpu.CacheL2)
+
+		return percentage(size, 90)
+
+	case cpu.CacheL1:
+		// 60% of the L1 cache
+		size := cpu.GetCacheSize(cpu.CacheL1)
+
+		return percentage(size, 60)
 	}
 }
 
-func percentage(value int64, percentage int64) int64 {
+func percentage(value, percentage int64) int64 {
 	return (value * percentage) / 100
 }
 

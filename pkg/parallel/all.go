@@ -9,10 +9,11 @@ func All(calls ...func() error) error {
 
 	for index, callFn := range calls {
 		wg.Go(func() {
-			errors.Append(newErrorWithIndex(callFn(),index))
+			errors.Append(newErrorWithIndex(callFn(), index))
 		})
 	}
 
 	wg.Wait()
+
 	return errors.Get()
 }

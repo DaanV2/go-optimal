@@ -5,11 +5,7 @@ func Chunk[T any](items []T, callback func(items []T) error) error {
 	chunk := SliceSize[T]()
 
 	for i := 0; i < len(items); i += chunk {
-		end := i + chunk
-
-		if end > len(items) {
-			end = len(items)
-		}
+		end := min(i+chunk, len(items))
 
 		if err := callback(items[i:end]); err != nil {
 			return err

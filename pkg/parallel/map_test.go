@@ -1,10 +1,12 @@
-package parallel
+package parallel_test
 
 import (
 	"strconv"
 	"testing"
 
+	"github.com/daanv2/go-optimal/pkg/parallel"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_Map(t *testing.T) {
@@ -27,11 +29,12 @@ func Map_Tests(t *testing.T, itemSize int) {
 	t.Run("Ensuring that all items are set in the slice", func(t *testing.T) {
 		data := make([]int, itemSize)
 
-		items, errs := Map(data, func(index int, item int, items []int) (TestStruct, error) {
+		items, errs := parallel.Map(data, func(index int, item int, items []int) (TestStruct, error) {
 			result := TestStruct{Name: "Test", Age: 10, Index: index}
+
 			return result, nil
 		})
-		assert.NoError(t, errs)
+		require.NoError(t, errs)
 
 		for index, item := range items {
 			assert.Equal(t, "Test", item.Name)
