@@ -3,7 +3,7 @@ module github.com/daanv2/go-optimal
 go 1.25
 
 require (
-	github.com/klauspost/cpuid/v2 v2.4.0
+	github.com/klauspost/cpuid/v2 v2.4.1
 	github.com/stretchr/testify v1.12.1
 )
 
